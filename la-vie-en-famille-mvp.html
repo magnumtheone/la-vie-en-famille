@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="La Vie en Famille - ONG engagée auprès des personnes vulnérables." />
+  <title>La Vie en Famille | Ensemble, redonnons de l'espoir</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef7f2',
+              100: '#d9eee1',
+              500: '#3c8d62',
+              600: '#2f7550',
+              700: '#245c3f',
+              900: '#163526'
+            },
+            accent: '#e9a23b',
+            ink: '#183128'
+          },
+          boxShadow: {
+            soft: '0 18px 45px rgba(24,49,40,.10)',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .hero-overlay { background: linear-gradient(90deg, rgba(12,42,29,.92), rgba(12,42,29,.62), rgba(12,42,29,.15)); }
+    .section-label { letter-spacing: .18em; }
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-7px); }
+  </style>
+</head>
+
+<body class="bg-white text-slate-700">
+
+<!-- Navigation -->
+<header id="top" class="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+    <a href="#accueil" class="flex items-center gap-3">
+      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-700 text-xl font-black text-white">LVF</div>
+      <div>
+        <div class="text-lg font-extrabold tracking-tight text-ink">La Vie en Famille</div>
+        <div class="text-xs text-slate-500">Solidarité • Dignité • Espoir</div>
+      </div>
+    </a>
+
+    <nav class="hidden items-center gap-7 text-sm font-semibold text-slate-600 lg:flex">
+      <a class="hover:text-brand-700" href="#apropos">À propos</a>
+      <a class="hover:text-brand-700" href="#actions">Nos actions</a>
+      <a class="hover:text-brand-700" href="#activites">Activités</a>
+      <a class="hover:text-brand-700" href="#galerie">Galerie</a>
+      <a class="hover:text-brand-700" href="#blog">Actualités</a>
+      <a class="rounded-xl bg-brand-700 px-5 py-3 text-white shadow-soft hover:bg-brand-900" href="#contact">Nous contacter</a>
+    </nav>
+
+    <button id="menuButton" class="rounded-xl border border-slate-200 p-3 text-brand-700 lg:hidden" aria-label="Ouvrir le menu">
+      <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden border-t border-slate-100 bg-white px-5 py-5 lg:hidden">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 font-semibold text-slate-700">
+      <a href="#apropos">À propos</a>
+      <a href="#actions">Nos actions</a>
+      <a href="#activites">Activités</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#blog">Actualités</a>
+      <a href="#contact" class="rounded-xl bg-brand-700 px-5 py-3 text-center text-white">Nous contacter</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- Hero -->
+<section id="accueil" class="relative min-h-[760px] overflow-hidden">
+  <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=2200&q=85" alt="Communauté et enfants accompagnés par une action solidaire">
+  <div class="hero-overlay absolute inset-0"></div>
+
+  <div class="relative mx-auto flex min-h-[760px] max-w-7xl items-center px-5 pt-28 lg:px-8">
+    <div class="max-w-3xl py-20 text-white">
+      <p class="section-label mb-5 text-xs font-bold uppercase text-brand-100">Organisation non gouvernementale</p>
+      <h1 class="max-w-3xl text-5xl font-black leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
+        Là où il y a une famille, <span class="text-amber-300">l'espoir peut renaître.</span>
+      </h1>
+      <p class="mt-7 max-w-2xl text-lg leading-8 text-white/85 sm:text-xl">
+        La Vie en Famille agit aux côtés des personnes vulnérables pour restaurer la dignité, renforcer la solidarité et construire des communautés plus inclusives.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="#actions" class="rounded-xl bg-white px-6 py-4 font-bold text-brand-900 shadow-soft transition hover:-translate-y-1">Découvrir nos actions</a>
+        <a href="#soutenir" class="rounded-xl border border-white/40 bg-white/10 px-6 py-4 font-bold text-white backdrop-blur transition hover:bg-white/20">Nous soutenir</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0">
+    <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-white/20 lg:grid-cols-4">
+      <div class="bg-brand-900/90 p-6 text-white backdrop-blur"><strong class="block text-3xl">Humanité</strong><span class="text-sm text-white/70">au cœur de nos actions</span></div>
+      <div class="bg-brand-900/90 p-6 text-white backdrop-blur"><strong class="block text-3xl">Dignité</strong><span class="text-sm text-white/70">pour chaque personne</span></div>
+      <div class="bg-brand-900/90 p-6 text-white backdrop-blur"><strong class="block text-3xl">Inclusion</strong><span class="text-sm text-white/70">sans distinction</span></div>
+      <div class="bg-brand-900/90 p-6 text-white backdrop-blur"><strong class="block text-3xl">Espoir</strong><span class="text-sm text-white/70">pour un avenir meilleur</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="apropos" class="py-24">
+  <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8">
+    <div class="relative">
+      <img class="h-[570px] w-full rounded-[2rem] object-cover shadow-soft" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1200&q=85" alt="Membres d'une communauté réunis">
+      <div class="absolute -bottom-7 -right-2 max-w-xs rounded-2xl bg-white p-6 shadow-soft lg:-right-8">
+        <div class="text-sm font-bold text-brand-700">NOTRE CONVICTION</div>
+        <p class="mt-2 text-lg font-bold leading-7 text-ink">Chaque personne mérite d'être protégée, respectée et accompagnée.</p>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-label text-xs font-bold uppercase text-brand-700">À propos de nous</p>
+      <h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Construire un avenir où personne n'est laissé de côté.</h2>
+      <p class="mt-6 leading-8 text-slate-600">
+        La Vie en Famille est une organisation engagée en faveur des personnes et communautés en situation de vulnérabilité. Notre approche place l'être humain, la famille et la solidarité au centre de chaque intervention.
+      </p>
+      <p class="mt-4 leading-8 text-slate-600">
+        À travers des actions sociales, humanitaires et communautaires, nous accompagnons notamment les personnes vivant avec handicap, les déplacés, les femmes et les enfants vulnérables.
+      </p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-brand-100 bg-brand-50 p-6"><div class="font-black text-ink">Notre vision</div><p class="mt-2 text-sm leading-6">Une société inclusive où chaque personne peut vivre dans la dignité et la sécurité.</p></div>
+        <div class="rounded-2xl border border-brand-100 bg-brand-50 p-6"><div class="font-black text-ink">Notre mission</div><p class="mt-2 text-sm leading-6">Apporter une assistance concrète et durable aux personnes vulnérables.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Impact -->
+<section class="bg-brand-900 py-20 text-white">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="mb-12 max-w-2xl">
+      <p class="section-label text-xs font-bold uppercase text-brand-100">Notre engagement</p>
+      <h2 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Des actions concrètes au service des communautés.</h2>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7"><div class="text-4xl font-black text-amber-300">01</div><h3 class="mt-5 text-xl font-bold">Écouter</h3><p class="mt-2 text-sm leading-6 text-white/70">Comprendre les besoins réels des personnes et des communautés.</p></div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7"><div class="text-4xl font-black text-amber-300">02</div><h3 class="mt-5 text-xl font-bold">Accompagner</h3><p class="mt-2 text-sm leading-6 text-white/70">Offrir un soutien adapté aux réalités et aux situations vécues.</p></div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7"><div class="text-4xl font-black text-amber-300">03</div><h3 class="mt-5 text-xl font-bold">Protéger</h3><p class="mt-2 text-sm leading-6 text-white/70">Promouvoir les droits, la sécurité et la dignité des personnes vulnérables.</p></div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7"><div class="text-4xl font-black text-amber-300">04</div><h3 class="mt-5 text-xl font-bold">Transformer</h3><p class="mt-2 text-sm leading-6 text-white/70">Créer un impact durable et renforcer la résilience des communautés.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Actions -->
+<section id="actions" class="bg-slate-50 py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div class="max-w-3xl">
+        <p class="section-label text-xs font-bold uppercase text-brand-700">Nos domaines d'intervention</p>
+        <h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Nous intervenons là où le besoin est le plus grand.</h2>
+      </div>
+      <a href="#contact" class="font-bold text-brand-700">Discutons d'un partenariat →</a>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <article class="card-hover overflow-hidden rounded-3xl bg-white shadow-soft">
+        <img class="h-52 w-full object-cover" src="https://images.unsplash.com/photo-1489493585363-d694e8d6b8e1?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="p-6"><div class="text-sm font-bold text-brand-700">01</div><h3 class="mt-3 text-xl font-black text-ink">Personnes vivant avec handicap</h3><p class="mt-3 text-sm leading-6">Inclusion, accompagnement et promotion de la dignité.</p></div>
+      </article>
+      <article class="card-hover overflow-hidden rounded-3xl bg-white shadow-soft">
+        <img class="h-52 w-full object-cover" src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="p-6"><div class="text-sm font-bold text-brand-700">02</div><h3 class="mt-3 text-xl font-black text-ink">Personnes déplacées</h3><p class="mt-3 text-sm leading-6">Assistance et soutien aux familles touchées par les déplacements.</p></div>
+      </article>
+      <article class="card-hover overflow-hidden rounded-3xl bg-white shadow-soft">
+        <img class="h-52 w-full object-cover" src="https://images.unsplash.com/photo-1494386346843-e12284507169?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="p-6"><div class="text-sm font-bold text-brand-700">03</div><h3 class="mt-3 text-xl font-black text-ink">Femmes vulnérables</h3><p class="mt-3 text-sm leading-6">Autonomisation, protection et accompagnement social.</p></div>
+      </article>
+      <article class="card-hover overflow-hidden rounded-3xl bg-white shadow-soft">
+        <img class="h-52 w-full object-cover" src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80" alt="">
+        <div class="p-6"><div class="text-sm font-bold text-brand-700">04</div><h3 class="mt-3 text-xl font-black text-ink">Enfants vulnérables</h3><p class="mt-3 text-sm leading-6">Protection, éducation, bien-être et épanouissement.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Activities -->
+<section id="activites" class="py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="max-w-3xl">
+      <p class="section-label text-xs font-bold uppercase text-brand-700">Sur le terrain</p>
+      <h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Nos activités récentes.</h2>
+      <p class="mt-5 leading-8 text-slate-600">Dans la version Django, cette section pourra être gérée dynamiquement depuis l'administration.</p>
+    </div>
+
+    <div class="mt-12 grid gap-7 lg:grid-cols-3">
+      <article class="card-hover overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-soft">
+        <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1000&q=80" alt="">
+        <div class="p-7"><div class="text-sm font-bold text-brand-700">ACTION COMMUNAUTAIRE</div><h3 class="mt-3 text-2xl font-black text-ink">Une journée de solidarité au plus près des familles</h3><p class="mt-4 text-sm leading-6">Une activité d'accompagnement et d'écoute destinée aux personnes en situation de vulnérabilité.</p><button class="mt-6 font-bold text-brand-700">Voir l'activité →</button></div>
+      </article>
+      <article class="card-hover overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-soft">
+        <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?auto=format&fit=crop&w=1000&q=80" alt="">
+        <div class="p-7"><div class="text-sm font-bold text-brand-700">PROTECTION</div><h3 class="mt-3 text-2xl font-black text-ink">Renforcer la protection des femmes et des enfants</h3><p class="mt-4 text-sm leading-6">Des actions de sensibilisation et d'accompagnement pour favoriser un environnement protecteur.</p><button class="mt-6 font-bold text-brand-700">Voir l'activité →</button></div>
+      </article>
+      <article class="card-hover overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-soft">
+        <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1504150558240-0b4fd8946624?auto=format&fit=crop&w=1000&q=80" alt="">
+        <div class="p-7"><div class="text-sm font-bold text-brand-700">INCLUSION</div><h3 class="mt-3 text-2xl font-black text-ink">Agir pour une société accessible à tous</h3><p class="mt-4 text-sm leading-6">Des initiatives qui encouragent l'inclusion et la participation de toutes et tous.</p><button class="mt-6 font-bold text-brand-700">Voir l'activité →</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="galerie" class="bg-slate-50 py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <p class="section-label text-xs font-bold uppercase text-brand-700">Nos images</p>
+    <h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Des histoires qui méritent d'être vues.</h2>
+
+    <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <img class="h-72 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=900&q=80" alt="">
+      <img class="h-72 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=80" alt="">
+      <img class="h-72 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=900&q=80" alt="">
+      <img class="h-72 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80" alt="">
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
+      <div class="overflow-hidden rounded-3xl bg-brand-900 p-8 text-white sm:p-10">
+        <p class="section-label text-xs font-bold uppercase text-brand-100">Nos vidéos</p>
+        <h3 class="mt-4 text-3xl font-black">Faire entendre les voix et montrer l'impact.</h3>
+        <p class="mt-4 max-w-xl leading-7 text-white/70">Les vidéos seront hébergées sur YouTube puis intégrées directement sur le site, sans alourdir le serveur Django.</p>
+      </div>
+      <div class="flex items-center justify-center rounded-3xl bg-white p-8 shadow-soft">
+        <div class="text-center">
+          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-2xl text-white">▶</div>
+          <p class="mt-4 font-black text-ink">Vidéo YouTube</p>
+          <p class="mt-1 text-sm text-slate-500">Emplacement prêt pour intégration iframe</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Support -->
+<section id="soutenir" class="py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="rounded-[2rem] bg-gradient-to-br from-brand-700 to-brand-900 p-8 text-white shadow-soft sm:p-14">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div><p class="section-label text-xs font-bold uppercase text-brand-100">Agir avec nous</p><h2 class="mt-4 text-4xl font-black sm:text-5xl">Chaque soutien peut changer une vie.</h2><p class="mt-5 max-w-xl leading-8 text-white/80">Particuliers, entreprises, institutions et organisations : votre soutien peut contribuer à transformer des besoins urgents en solutions durables.</p></div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <a href="#contact" class="rounded-2xl bg-white p-6 text-brand-900 transition hover:-translate-y-1"><strong class="block text-xl">Faire un don</strong><span class="mt-2 block text-sm text-slate-500">Soutenir financièrement nos actions.</span></a>
+          <a href="#contact" class="rounded-2xl border border-white/15 bg-white/10 p-6 transition hover:-translate-y-1"><strong class="block text-xl">Devenir partenaire</strong><span class="mt-2 block text-sm text-white/70">Construire un impact durable ensemble.</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog -->
+<section id="blog" class="bg-slate-50 py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div><p class="section-label text-xs font-bold uppercase text-brand-700">Actualités</p><h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Nos dernières histoires.</h2></div>
+      <a href="#" class="font-bold text-brand-700">Voir toutes les actualités →</a>
+    </div>
+
+    <div class="mt-12 grid gap-7 lg:grid-cols-3">
+      <article class="rounded-3xl bg-white p-7 shadow-soft"><div class="text-xs font-bold uppercase tracking-widest text-brand-700">Actualité • 12 août</div><h3 class="mt-4 text-2xl font-black text-ink">Quand la solidarité devient une force pour les familles</h3><p class="mt-4 leading-7 text-slate-600">Retour sur une initiative communautaire dédiée à l'accompagnement des personnes vulnérables.</p><a href="#" class="mt-6 inline-block font-bold text-brand-700">Lire l'article →</a></article>
+      <article class="rounded-3xl bg-white p-7 shadow-soft"><div class="text-xs font-bold uppercase tracking-widest text-brand-700">Témoignage • 05 août</div><h3 class="mt-4 text-2xl font-black text-ink">Donner une place à chaque personne dans la communauté</h3><p class="mt-4 leading-7 text-slate-600">L'inclusion commence par l'écoute, le respect et des actions adaptées à chaque réalité.</p><a href="#" class="mt-6 inline-block font-bold text-brand-700">Lire l'article →</a></article>
+      <article class="rounded-3xl bg-white p-7 shadow-soft"><div class="text-xs font-bold uppercase tracking-widest text-brand-700">Projet • 28 juillet</div><h3 class="mt-4 text-2xl font-black text-ink">Une nouvelle action pour accompagner les enfants</h3><p class="mt-4 leading-7 text-slate-600">Présentation d'un projet tourné vers la protection et l'épanouissement des enfants vulnérables.</p><a href="#" class="mt-6 inline-block font-bold text-brand-700">Lire l'article →</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-24">
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+    <div>
+      <p class="section-label text-xs font-bold uppercase text-brand-700">Contact</p>
+      <h2 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Parlons de ce que nous pouvons accomplir ensemble.</h2>
+      <p class="mt-6 leading-8 text-slate-600">Les coordonnées ci-dessous sont des emplacements à remplacer par les informations officielles de l'association.</p>
+      <div class="mt-8 space-y-5">
+        <div><strong class="block text-ink">Adresse</strong><span class="text-slate-500">À renseigner • République Démocratique du Congo</span></div>
+        <div><strong class="block text-ink">Téléphone</strong><span class="text-slate-500">À renseigner</span></div>
+        <div><strong class="block text-ink">E-mail</strong><span class="text-slate-500">contact@lavieenfamille.org</span></div>
+      </div>
+    </div>
+
+    <form class="rounded-3xl border border-slate-100 bg-white p-7 shadow-soft sm:p-10" onsubmit="event.preventDefault(); document.getElementById('formMessage').classList.remove('hidden');">
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div><label class="mb-2 block text-sm font-bold text-ink">Nom</label><input required class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand-600" placeholder="Votre nom"></div>
+        <div><label class="mb-2 block text-sm font-bold text-ink">E-mail</label><input required type="email" class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand-600" placeholder="Votre e-mail"></div>
+      </div>
+      <div class="mt-5"><label class="mb-2 block text-sm font-bold text-ink">Sujet</label><input required class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand-600" placeholder="Comment pouvons-nous vous aider ?"></div>
+      <div class="mt-5"><label class="mb-2 block text-sm font-bold text-ink">Message</label><textarea required rows="6" class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand-600" placeholder="Écrivez votre message..."></textarea></div>
+      <button class="mt-6 rounded-xl bg-brand-700 px-6 py-4 font-bold text-white transition hover:bg-brand-900">Envoyer le message</button>
+      <p id="formMessage" class="mt-4 hidden rounded-xl bg-brand-50 p-4 text-sm font-medium text-brand-700">Merci. Le formulaire est en mode démo pour le MVP.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="bg-[#10271e] py-16 text-white">
+  <div class="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <div>
+      <div class="flex items-center gap-3"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-sm font-black text-brand-900">LVF</div><strong class="text-xl">La Vie en Famille</strong></div>
+      <p class="mt-5 text-sm leading-7 text-white/60">Agir avec solidarité pour la dignité, la protection et l'espoir des personnes vulnérables.</p>
+    </div>
+    <div><h3 class="font-bold">Navigation</h3><div class="mt-5 flex flex-col gap-3 text-sm text-white/60"><a href="#apropos">À propos</a><a href="#actions">Nos actions</a><a href="#activites">Activités</a><a href="#blog">Actualités</a></div></div>
+    <div><h3 class="font-bold">Nous soutenir</h3><div class="mt-5 flex flex-col gap-3 text-sm text-white/60"><a href="#soutenir">Faire un don</a><a href="#contact">Devenir partenaire</a><a href="#contact">Bénévolat</a><a href="#contact">Nous contacter</a></div></div>
+    <div><h3 class="font-bold">Réseaux sociaux</h3><div class="mt-5 flex flex-wrap gap-3"><a href="#" class="rounded-xl bg-white/10 px-4 py-3 text-sm hover:bg-white/20">Facebook</a><a href="#" class="rounded-xl bg-white/10 px-4 py-3 text-sm hover:bg-white/20">Instagram</a><a href="#" class="rounded-xl bg-white/10 px-4 py-3 text-sm hover:bg-white/20">YouTube</a><a href="#" class="rounded-xl bg-white/10 px-4 py-3 text-sm hover:bg-white/20">LinkedIn</a></div></div>
+  </div>
+  <div class="mx-auto mt-12 max-w-7xl border-t border-white/10 px-5 pt-7 text-sm text-white/40 lg:px-8">© <span id="year"></span> La Vie en Famille. Tous droits réservés.</div>
+</footer>
+
+<script>
+  const menuButton = document.getElementById('menuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

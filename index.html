@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Vie en Famille accompagne les personnes vulnérables et renforce la solidarité au sein des communautés." />
+    <title>La Vie en Famille | Solidarité, dignité, espoir</title>
+    <!-- Tailwind CSS CDN pour un prototypage rapide -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome pour les icônes sociales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --forest: #183b32; --leaf: #21634d; --sun: #c99b3b; --ink: #17231e; --cream: #f6f0e4; }
+        body { font-family: "Trebuchet MS", "Segoe UI", sans-serif; color: var(--ink); background: var(--cream); }
+        h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
+        a, button, input, textarea { outline-offset: 4px; }
+        :focus-visible { outline: 3px solid var(--sun); outline-offset: 4px; }
+        .skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; background: #fff; color: var(--forest); padding: .75rem 1rem; font-weight: 700; }
+        .skip-link:focus { top: 1rem; }
+        .brand-mark { box-shadow: 0 5px 18px rgba(201, 155, 59, .28); }
+        .mobile-panel { transform-origin: top; transition: opacity .25s ease, transform .25s ease, visibility .25s ease; }
+        .mobile-panel.is-closed { opacity: 0; transform: translateY(-12px) scaleY(.96); visibility: hidden; pointer-events: none; }
+        .mobile-panel.is-open { opacity: 1; transform: translateY(0) scaleY(1); visibility: visible; }
+        .mobile-backdrop { transition: opacity .25s ease, visibility .25s ease; }
+        .mobile-backdrop.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .mobile-backdrop.is-visible { opacity: 1; visibility: visible; }
+        .reveal { animation: rise-in .7s ease both; }
+        @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-item { animation: hero-in .8s cubic-bezier(.2,.75,.25,1) both; }
+        .hero-item:nth-child(2) { animation-delay: .12s; }
+        .hero-item:nth-child(3) { animation-delay: .22s; }
+        .hero-item:nth-child(4) { animation-delay: .32s; }
+        @keyframes hero-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        .story-section { position: relative; height: 185vh; background: var(--cream); }
+        .story-stage { position: sticky; top: 0; height: 100vh; min-height: 620px; overflow: hidden; display: grid; place-items: center; }
+        .story-bg { position: absolute; inset: 0; background: var(--forest); transform: scaleY(var(--story-progress, 0)); transform-origin: bottom; }
+        .story-content { position: relative; z-index: 1; max-width: 850px; padding: 2rem; text-align: center; color: white; opacity: var(--story-opacity, 0); transform: translateY(calc((1 - var(--story-opacity, 0)) * 28px)); }
+        .story-content h2 { font-size: clamp(2.4rem, 6vw, 5.8rem); line-height: 1.04; }
+        .story-content p { margin: 1.5rem auto 0; max-width: 600px; color: #d9eee1; font-size: 1.1rem; line-height: 1.7; }
+        .story-kicker { color: #e9c46a; letter-spacing: .18em; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+        @media (prefers-reduced-motion: reduce) { .story-section { height: auto; } .story-stage { position: relative; } .story-bg { transform: none; } .story-content { opacity: 1; transform: none; } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <a href="#accueil" class="text-xl sm:text-2xl font-bold text-emerald-800 flex items-center gap-3">
+                <img src="images/profil.jpeg" alt="" class="brand-mark h-12 w-12 rounded-full object-cover border-2 border-amber-500">
+                <span>La Vie en Famille</span>
+            </a>
+            <nav aria-label="Navigation principale" class="hidden md:flex space-x-8 font-medium">
+                <a href="#accueil" class="hover:text-emerald-600 transition">Accueil</a>
+                <a href="#apropos" class="hover:text-emerald-600 transition">À propos</a>
+                <a href="#missions" class="hover:text-emerald-600 transition">Nos Missions</a>
+                <a href="#activites" class="hover:text-emerald-600 transition">Activités</a>
+                <a href="#galerie" class="hover:text-emerald-600 transition">Galerie</a>
+                <a href="#blog" class="hover:text-emerald-600 transition">Actualités</a>
+                <a href="#contact" class="hover:text-emerald-600 transition">Contact</a>
+            </nav>
+            <button id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden min-h-11 min-w-11 rounded-lg border border-gray-300 text-emerald-800" aria-label="Ouvrir le menu">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="hidden md:block">
+                <a href="#contact" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-5 py-3 rounded-lg shadow transition">
+                    Nous Soutenir
+                </a>
+            </div>
+        </div>
+        <div id="mobileBackdrop" class="mobile-backdrop is-hidden fixed inset-0 top-20 z-40 bg-emerald-950/40 backdrop-blur-sm md:hidden" aria-hidden="true"></div>
+        <nav id="mobileMenu" aria-label="Navigation mobile" class="mobile-panel is-closed absolute inset-x-0 top-full z-50 border-t border-emerald-100 bg-white px-4 py-5 shadow-2xl md:hidden">
+            <div class="flex flex-col gap-1 font-semibold">
+                <a href="#accueil" class="rounded-lg px-4 py-3 hover:bg-emerald-50">Accueil</a>
+                <a href="#apropos" class="rounded-lg px-4 py-3 hover:bg-emerald-50">À propos</a>
+                <a href="#missions" class="rounded-lg px-4 py-3 hover:bg-emerald-50">Nos missions</a>
+                <a href="#activites" class="rounded-lg px-4 py-3 hover:bg-emerald-50">Activités</a>
+                <a href="#contact" class="rounded-lg bg-emerald-800 px-4 py-3 text-center text-white hover:bg-emerald-900">Nous contacter</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main id="contenu">
+    <section id="accueil" class="relative bg-emerald-950 text-white py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="hero-copy">
+                <span class="hero-item inline-block bg-emerald-700 text-emerald-50 text-xs font-semibold uppercase px-3 py-2 rounded-lg">Organisation non gouvernementale</span>
+                <h1 class="hero-item text-4xl sm:text-5xl font-extrabold mt-4 mb-6 leading-tight">
+                    Restaurer l'espoir au cœur des familles vulnérables
+                </h1>
+                <p class="hero-item text-lg text-emerald-100 mb-8">
+                    "La vie en famille" œuvre au quotidien pour apporter assistance, dignité et autoprotection aux personnes vivant avec handicap, aux déplacés de guerre, ainsi qu'aux femmes et enfants vulnérables.
+                </p>
+            </div>
+            <div class="hero-item relative">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop" 
+                     alt="Action humanitaire" 
+                     class="rounded-2xl shadow-2xl object-cover w-full h-96">
+            </div>
+        </div>
+        <div class="mx-auto mt-14 grid max-w-7xl grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/20 text-center sm:grid-cols-4">
+            <div class="bg-emerald-900/80 px-3 py-5"><strong class="block text-3xl text-amber-300">150+</strong><span class="text-xs text-emerald-100">enfants accompagnés</span></div>
+            <div class="bg-emerald-900/80 px-3 py-5"><strong class="block text-3xl text-amber-300">4</strong><span class="text-xs text-emerald-100">domaines d'action</span></div>
+            <div class="bg-emerald-900/80 px-3 py-5"><strong class="block text-3xl text-amber-300">100%</strong><span class="text-xs text-emerald-100">dignité au centre</span></div>
+            <div class="bg-emerald-900/80 px-3 py-5"><strong class="block text-3xl text-amber-300">1</strong><span class="text-xs text-emerald-100">même conviction</span></div>
+        </div>
+    </section>
+
+    <section id="transition" class="story-section" aria-labelledby="transition-title">
+        <div class="story-stage" id="storyStage">
+            <div class="story-bg" aria-hidden="true"></div>
+            <div class="story-content">
+                <p class="story-kicker">Notre raison d'être</p>
+                <h2 id="transition-title">Construire un avenir où personne n'est laissé de côté.</h2>
+                <p>Chaque geste compte. Chaque famille mérite une chance de vivre dans la dignité, la sécurité et l'espoir.</p>
+                <div class="mt-8 flex flex-wrap justify-center gap-4">
+                    <a href="#activites" class="inline-flex min-h-11 items-center rounded-lg bg-white px-6 py-3 font-bold text-emerald-950 shadow-lg transition hover:-translate-y-1 hover:bg-emerald-50">Découvrir nos actions</a>
+                    <a href="#contact" class="inline-flex min-h-11 items-center rounded-lg border border-white/60 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur transition hover:-translate-y-1 hover:bg-white hover:text-emerald-950">Rejoindre l'ONG</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOS MISSIONS / POPULATIONS CIBLES -->
+    <section id="missions" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Au service des plus vulnérables</h2>
+            <p class="text-gray-600">Nous concentrons nos efforts sur des programmes ciblés pour offrir un impact durable.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Carte 1 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
+                    <i class="fa-solid fa-wheelchair"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Inclusion & Handicap</h3>
+                <p class="text-gray-600 text-sm">
+                    Accompagnement matériel, médical et réintégration socio-économique des personnes vivant avec un handicap.
+                </p>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
+                    <i class="fa-solid fa-campground"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Aide aux Déplacés</h3>
+                <p class="text-gray-600 text-sm">
+                    Distribution de vivres, kits de première nécessité et soutien psychosocial aux familles déplacées.
+                </p>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
+                    <i class="fa-solid fa-child-reaching"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Femmes & Enfants</h3>
+                <p class="text-gray-600 text-sm">
+                    Protection contre les violences, scolarisation des enfants orphelins et autonomisation des mères.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="apropos" class="bg-[#f6f0e4] py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div class="relative reveal">
+                <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1200&auto=format&fit=crop" alt="Des membres d'une communauté réunis" class="h-80 sm:h-[570px] w-full rounded-2xl object-cover shadow-xl">
+                <div class="absolute -bottom-5 right-4 max-w-xs rounded-xl bg-white p-5 shadow-xl"><p class="text-xs font-bold uppercase tracking-wider text-emerald-800">Notre conviction</p><p class="mt-2 font-serif text-lg font-bold text-gray-900">Chaque personne mérite d'être protégée, respectée et accompagnée.</p></div>
+            </div>
+            <div>
+                <p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">À propos de nous</p>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Construire un avenir où personne n'est laissé de côté.</h2>
+                <p class="mt-5 leading-7 text-gray-700">Notre approche place l'être humain, la famille et la solidarité au centre de chaque intervention. Nous accompagnons les personnes vivant avec handicap, les déplacés, les femmes et les enfants vulnérables.</p>
+                <div class="mt-7 grid gap-4 sm:grid-cols-2"><div class="rounded-xl border border-emerald-100 bg-white p-5"><h3 class="font-bold">Notre vision</h3><p class="mt-2 text-sm leading-6 text-gray-600">Une société inclusive où chaque personne vit dans la dignité et la sécurité.</p></div><div class="rounded-xl border border-emerald-100 bg-white p-5"><h3 class="font-bold">Notre mission</h3><p class="mt-2 text-sm leading-6 text-gray-600">Apporter une assistance concrète et durable aux personnes vulnérables.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-emerald-950 py-20 px-4 text-white sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto"><p class="text-amber-300 text-sm font-bold uppercase tracking-wider">Notre engagement</p><h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl font-bold">Des actions concrètes au service des communautés.</h2><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">01</strong><h3 class="mt-3 text-xl font-bold">Écouter</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Comprendre les besoins réels des personnes.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">02</strong><h3 class="mt-3 text-xl font-bold">Accompagner</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Offrir un soutien adapté à chaque situation.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">03</strong><h3 class="mt-3 text-xl font-bold">Protéger</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Promouvoir les droits et la dignité.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">04</strong><h3 class="mt-3 text-xl font-bold">Transformer</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Renforcer durablement la résilience.</p></div></div></div>
+    </section>
+
+    <section id="soutenir" class="py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto rounded-2xl bg-gradient-to-br from-emerald-800 to-emerald-950 p-8 sm:p-12 text-white shadow-xl"><div class="grid gap-8 lg:grid-cols-2 lg:items-center"><div><p class="text-amber-300 text-sm font-bold uppercase tracking-wider">Agir avec nous</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold">Chaque soutien peut changer une vie.</h2><p class="mt-4 max-w-xl leading-7 text-emerald-50">Particuliers, entreprises et institutions : transformons ensemble les besoins urgents en solutions durables.</p></div><div class="grid gap-4 sm:grid-cols-2"><a href="#contact" class="rounded-xl bg-white p-5 text-emerald-950 transition hover:-translate-y-1 hover:shadow-lg"><strong class="block text-lg">Faire un don</strong><span class="mt-2 block text-sm text-gray-600">Soutenir financièrement nos actions.</span></a><a href="#contact" class="rounded-xl border border-white/30 bg-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/20"><strong class="block text-lg">Devenir partenaire</strong><span class="mt-2 block text-sm text-emerald-50">Construire un impact durable ensemble.</span></a></div></div></div></section>
+
+    <section id="blog" class="bg-[#f6f0e4] py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Actualités</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Nos dernières histoires.</h2><div class="mt-10 grid gap-6 lg:grid-cols-3"><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Actualité · 12 août</p><h3 class="mt-3 text-xl font-bold">Quand la solidarité devient une force pour les familles</h3><p class="mt-3 text-sm leading-6 text-gray-600">Retour sur une initiative communautaire dédiée à l'accompagnement des personnes vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Témoignage · 05 août</p><h3 class="mt-3 text-xl font-bold">Donner une place à chaque personne</h3><p class="mt-3 text-sm leading-6 text-gray-600">L'inclusion commence par l'écoute, le respect et des actions adaptées.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Projet · 28 juillet</p><h3 class="mt-3 text-xl font-bold">Une nouvelle action pour accompagner les enfants</h3><p class="mt-3 text-sm leading-6 text-gray-600">Un projet tourné vers la protection et l'épanouissement des enfants vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article></div></div></section>
+
+    <section id="galerie" class="py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Nos images</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Des histoires qui méritent d'être vues.</h2><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=900&q=80" alt="Enfants réunis dans une communauté"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=80" alt="Action solidaire de proximité"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=900&q=80" alt="Personnes participant à une action collective"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80" alt="Communauté accompagnée sur le terrain"></div></div></section>
+
+    <section id="contact" class="bg-emerald-50 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-2 lg:items-start">
+            <div>
+                <p class="text-emerald-700 font-bold text-sm uppercase tracking-wider">Agir avec nous</p>
+                <h2 class="text-3xl font-bold text-gray-950 mt-2 mb-4">Parlons de votre engagement</h2>
+                <p class="text-gray-700 leading-7">Une question, une proposition de partenariat ou l'envie de soutenir nos actions ? Notre équipe vous répond.</p>
+                <div class="mt-6 space-y-3 text-gray-800">
+                    <p><i class="fa-solid fa-envelope mr-3 text-emerald-700" aria-hidden="true"></i>contact@lavieenfamille.org</p>
+                    <p><i class="fa-solid fa-location-dot mr-3 text-emerald-700" aria-hidden="true"></i>République démocratique du Congo</p>
+                </div>
+            </div>
+            <form class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-emerald-100" onsubmit="event.preventDefault(); document.getElementById('formMessage').hidden = false;">
+                <div class="grid gap-5 sm:grid-cols-2">
+                    <div><label for="nom" class="block font-semibold mb-2">Nom</label><input id="nom" name="nom" required class="w-full min-h-11 rounded-lg border border-gray-300 px-4" autocomplete="name"></div>
+                    <div><label for="email" class="block font-semibold mb-2">E-mail</label><input id="email" name="email" type="email" required class="w-full min-h-11 rounded-lg border border-gray-300 px-4" autocomplete="email"></div>
+                </div>
+                <div class="mt-5"><label for="message" class="block font-semibold mb-2">Votre message</label><textarea id="message" name="message" required rows="5" class="w-full rounded-lg border border-gray-300 px-4 py-3"></textarea></div>
+                <button type="submit" class="mt-5 min-h-11 rounded-lg bg-emerald-700 px-6 py-3 font-bold text-white hover:bg-emerald-800">Envoyer le message</button>
+                <p id="formMessage" hidden role="status" class="mt-4 rounded-lg bg-emerald-100 p-4 text-emerald-950">Merci. Votre message a bien été enregistré pour la démonstration.</p>
+            </form>
+        </div>
+    </section>
+    <!-- SECTION ACTIVITÉS & MÉDIAS (PREVIEW DU FUTUR BLOG DJANGO) -->
+    <section id="activites" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                <div>
+                    <span class="text-emerald-600 font-bold uppercase text-xs tracking-wider">Actualités & Rapports</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-1">Dernières Activités sur le terrain</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 md:mt-0">Démonstration de la section dynamique (Futur Blog)</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1: Texte + Image -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=600&auto=format&fit=crop" 
+                         alt="Distribution de vivres" class="w-full h-48 object-cover">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                                <span class="bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Humanitaire</span>
+                                <span>• 20 Août 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 hover:text-emerald-600 transition">Distribution de kits scolaires et vivres</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3">
+                                Plus de 150 enfants issus de familles déplacées ont reçu des fournitures pour la rentrée scolaire...
+                            </p>
+                        </div>
+                        <a href="#" class="mt-4 text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+                            Lire la suite <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 2: Intégration Vidéo YouTube -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                    <div class="aspect-video w-full">
+                        <iframe class="w-full h-full" 
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                title="Vidéo YouTube" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                                <span class="bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Reportage Vidéo</span>
+                                <span>• 15 Août 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 hover:text-emerald-600 transition">Témoignages : L'autonomisation des femmes</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3">
+                                Découvrez en vidéo les histoires inspirantes de femmes ayant bénéficié de nos micro-crédits.
+                            </p>
+                        </div>
+                        <a href="#" class="mt-4 text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+                            Voir sur YouTube <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3: Texte + Image (Handicap) -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600&auto=format&fit=crop" 
+                         alt="Atelier d'insertion" class="w-full h-48 object-cover">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                                <span class="bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Inclusion</span>
+                                <span>• 02 Août 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 hover:text-emerald-600 transition">Atelier de formation pour personnes handicapées</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3">
+                                Remise de diplômes de fin de formation en artisanat et informatique professionnelle.
+                            </p>
+                        </div>
+                        <a href="#" class="mt-4 text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+                            Lire la suite <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-4 gap-8">
+            <!-- Col 1: Bio -->
+            <div class="space-y-4">
+                <span class="text-xl font-bold text-white flex items-center gap-3">
+                    <img src="images/profil.jpeg" alt="" class="h-10 w-10 rounded-full object-cover border border-amber-400">
+                    La vie en famille
+                </span>
+                <p class="text-sm text-gray-400">
+                    ONG humanitaire dédiée à l'assistance des personnes vulnérables, à l'inclusion sociale et à la protection de la famille.
+                </p>
+            </div>
+
+            <!-- Col 2: Liens rapides -->
+            <div>
+                <h4 class="text-white font-semibold mb-4">Navigation</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#accueil" class="hover:text-white transition">Accueil</a></li>
+                    <li><a href="#missions" class="hover:text-white transition">Nos Missions</a></li>
+                    <li><a href="#activites" class="hover:text-white transition">Activités & Médias</a></li>
+                    <li><a href="#" class="hover:text-white transition">Faire un don</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Contact -->
+            <div>
+                <h4 class="text-white font-semibold mb-4">Contact</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><i class="fa-solid fa-location-dot mr-2 text-emerald-500"></i> Siège social, RDC</li>
+                    <li><i class="fa-solid fa-envelope mr-2 text-emerald-500"></i> contact@lavieenfamille.org</li>
+                    <li><i class="fa-solid fa-phone mr-2 text-emerald-500"></i> +243 000 000 000</li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Réseaux Sociaux -->
+            <div>
+                <h4 class="text-white font-semibold mb-4">Suivez-nous</h4>
+                <p class="text-sm text-gray-400 mb-4">Restez informés de nos actions sur les réseaux sociaux :</p>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-emerald-600 rounded-full flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-emerald-600 rounded-full flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://wa.me/243000000000" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-emerald-600 rounded-full flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-emerald-600 rounded-full flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+            <p>&copy; 2026 ONG La vie en famille. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileBackdrop = document.getElementById('mobileBackdrop');
+        const menuIcon = menuButton.querySelector('i');
+
+        const closeMenu = () => {
+            menuButton.setAttribute('aria-expanded', 'false');
+            menuButton.setAttribute('aria-label', 'Ouvrir le menu');
+            mobileMenu.classList.remove('is-open');
+            mobileMenu.classList.add('is-closed');
+            mobileBackdrop.classList.remove('is-visible');
+            mobileBackdrop.classList.add('is-hidden');
+            menuIcon.className = 'fa-solid fa-bars';
+        };
+
+        menuButton.addEventListener('click', () => {
+            const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+            menuButton.setAttribute('aria-expanded', String(!isOpen));
+            menuButton.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
+            mobileMenu.classList.toggle('is-open', !isOpen);
+            mobileMenu.classList.toggle('is-closed', isOpen);
+            mobileBackdrop.classList.toggle('is-visible', !isOpen);
+            mobileBackdrop.classList.toggle('is-hidden', isOpen);
+            menuIcon.className = isOpen ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+        });
+
+        mobileBackdrop.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        const storySection = document.getElementById('transition');
+        const storyStage = document.getElementById('storyStage');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const updateStory = () => {
+            if (reducedMotion.matches) return;
+            const bounds = storySection.getBoundingClientRect();
+            const travel = Math.max(storySection.offsetHeight - window.innerHeight, 1);
+            const progress = Math.min(Math.max(-bounds.top / travel, 0), 1);
+            const reveal = Math.min(Math.max((progress - .18) / .45, 0), 1);
+            storyStage.style.setProperty('--story-progress', String(progress));
+            storyStage.style.setProperty('--story-opacity', String(reveal));
+        };
+
+        window.addEventListener('scroll', updateStory, { passive: true });
+        window.addEventListener('resize', updateStory);
+        updateStory();
+    </script>
+</body>
+</html>
