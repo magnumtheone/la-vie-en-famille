@@ -59,8 +59,32 @@
         .story-content h2 { font-size: clamp(2.4rem, 6vw, 5.8rem); line-height: 1.04; }
         .story-content p { margin: 1.5rem auto 0; max-width: 600px; color: #d9eee1; font-size: 1.1rem; line-height: 1.7; }
         .story-kicker { color: #e9c46a; letter-spacing: .18em; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+        .story-content > * { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.75,.25,1); }
+        .story-content.is-active > * { opacity: 1; transform: translateY(0); }
+        .story-content.is-active h2 { transition-delay: .12s; }
+        .story-content.is-active > p { transition-delay: .24s; }
+        .story-content.is-active > div { transition-delay: .36s; }
+        .engagement-reveal, .support-reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.75,.25,1); }
+        .engagement-reveal.is-visible, .support-reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .engagement-reveal[data-delay="1"], .support-reveal[data-delay="1"] { transition-delay: .12s; }
+        .engagement-reveal[data-delay="2"], .support-reveal[data-delay="2"] { transition-delay: .24s; }
+        .engagement-reveal[data-delay="3"], .support-reveal[data-delay="3"] { transition-delay: .36s; }
+        .engagement-reveal[data-delay="4"], .support-reveal[data-delay="4"] { transition-delay: .48s; }
+        #blog, #galerie, #contact, #activites { position: relative; }
+        #blog::before, #galerie::before, #activites::before { content: ''; position: absolute; left: 50%; top: 0; width: min(7rem, 18vw); height: 3px; background: var(--sun); transform: translateX(-50%); }
+        #blog article, #activites article { border: 1px solid rgba(18, 61, 50, .08); box-shadow: 0 14px 35px rgba(20, 36, 31, .07); transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+        #blog article:hover, #activites article:hover { transform: translateY(-6px); border-color: rgba(239, 184, 76, .6); box-shadow: 0 20px 45px rgba(20, 36, 31, .13); }
+        #blog article h3, #activites article h3 { line-height: 1.2; }
+        #galerie img { box-shadow: 0 12px 28px rgba(20, 36, 31, .12); filter: saturate(.9); transition: transform .5s cubic-bezier(.2,.75,.25,1), filter .5s ease, box-shadow .5s ease; }
+        #galerie img:hover { transform: scale(1.025); filter: saturate(1.1); box-shadow: 0 20px 40px rgba(20, 36, 31, .18); }
+        #contact > div { position: relative; }
+        #contact > div > div:first-child { border-left: 3px solid var(--sun); padding-left: 1.25rem; }
+        #contact form { border-top: 4px solid var(--sun); box-shadow: 0 18px 45px rgba(20, 36, 31, .1); }
+        footer { border-top: 4px solid var(--sun); }
+        footer a { transition: color .2s ease, transform .2s ease; }
+        footer li a:hover { display: inline-block; transform: translateX(3px); }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .scroll-reveal { opacity: 1; transform: none; } }
-        @media (prefers-reduced-motion: reduce) { .story-section { height: auto; } .story-stage { position: relative; } .story-bg { transform: none; } .story-content { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { .story-section { height: auto; } .story-stage { position: relative; } .story-bg { transform: none; } .story-content, .story-content > *, .engagement-reveal, .support-reveal { opacity: 1; transform: none; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -209,10 +233,6 @@
                 <div class="relative overflow-hidden rounded-[1.5rem] bg-emerald-950 p-2 shadow-2xl shadow-emerald-950/15">
                     <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1200&auto=format&fit=crop" alt="Des membres d'une communauté réunis" class="about-image h-80 w-full rounded-[1.1rem] object-cover sm:h-[570px]">
                 </div>
-                <div class="about-reveal absolute -bottom-7 right-0 max-w-xs rounded-xl border border-white/70 bg-white/95 p-5 shadow-xl backdrop-blur" data-delay="2">
-                    <p class="text-xs font-bold uppercase tracking-[.18em] text-emerald-800">Notre conviction</p>
-                    <p class="mt-2 text-lg font-bold leading-6 text-gray-900">Chaque personne mérite d'être protégée, respectée et accompagnée.</p>
-                </div>
                 <p class="absolute bottom-5 left-7 text-xs font-bold uppercase tracking-[.2em] text-white/80">Depuis 2015 · Ensemble</p>
             </div>
             <div>
@@ -227,17 +247,72 @@
         </div>
     </section>
 
-    <section class="bg-emerald-950 py-20 px-4 text-white sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto"><p class="text-amber-300 text-sm font-bold uppercase tracking-wider">Notre engagement</p><h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl font-bold">Des actions concrètes au service des communautés.</h2><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">01</strong><h3 class="mt-3 text-xl font-bold">Écouter</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Comprendre les besoins réels des personnes.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">02</strong><h3 class="mt-3 text-xl font-bold">Accompagner</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Offrir un soutien adapté à chaque situation.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">03</strong><h3 class="mt-3 text-xl font-bold">Protéger</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Promouvoir les droits et la dignité.</p></div><div class="border-l-2 border-amber-400 p-5"><strong class="text-3xl text-amber-300">04</strong><h3 class="mt-3 text-xl font-bold">Transformer</h3><p class="mt-2 text-sm leading-6 text-emerald-100">Renforcer durablement la résilience.</p></div></div></div>
+    <section class="relative overflow-hidden bg-emerald-950 py-24 px-4 text-white sm:px-6 lg:px-8">
+        <div class="absolute inset-y-0 right-0 hidden w-1/3 border-l border-white/10 lg:block" aria-hidden="true"></div>
+        <div class="relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.8fr_1.2fr] lg:items-start lg:gap-24">
+            <div class="engagement-reveal" data-delay="0">
+                <p class="text-sm font-bold uppercase tracking-[.2em] text-amber-300">Notre engagement</p>
+                <h2 class="mt-4 max-w-xl text-4xl font-bold leading-tight sm:text-5xl">Des actions concrètes au service des communautés.</h2>
+                <p class="mt-6 max-w-md text-base leading-7 text-emerald-100">Chaque intervention commence par une présence attentive et se construit avec les communautés, au plus près de leurs réalités.</p>
+                <div class="mt-10 border-l-2 border-amber-400 pl-5">
+                    <p class="text-xs font-bold uppercase tracking-[.18em] text-amber-300">Notre méthode</p>
+                    <p class="mt-2 text-lg font-medium leading-7 text-white">Écouter juste. Agir avec respect. Construire dans la durée.</p>
+                </div>
+            </div>
+            <div class="grid gap-x-10 gap-y-0 sm:grid-cols-2">
+                <article class="engagement-reveal group border-t border-white/20 py-7 transition-colors duration-300 hover:border-amber-400" data-delay="1">
+                    <div class="flex items-start justify-between gap-4"><strong class="text-4xl font-medium tracking-tight text-amber-300">01</strong><span class="text-sm text-emerald-300 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></div>
+                    <h3 class="mt-8 text-2xl font-bold">Écouter</h3>
+                    <p class="mt-3 max-w-xs text-sm leading-6 text-emerald-100">Comprendre les besoins réels des personnes.</p>
+                </article>
+                <article class="engagement-reveal group border-t border-white/20 py-7 transition-colors duration-300 hover:border-amber-400" data-delay="2">
+                    <div class="flex items-start justify-between gap-4"><strong class="text-4xl font-medium tracking-tight text-amber-300">02</strong><span class="text-sm text-emerald-300 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></div>
+                    <h3 class="mt-8 text-2xl font-bold">Accompagner</h3>
+                    <p class="mt-3 max-w-xs text-sm leading-6 text-emerald-100">Offrir un soutien adapté à chaque situation.</p>
+                </article>
+                <article class="engagement-reveal group border-t border-white/20 py-7 transition-colors duration-300 hover:border-amber-400" data-delay="3">
+                    <div class="flex items-start justify-between gap-4"><strong class="text-4xl font-medium tracking-tight text-amber-300">03</strong><span class="text-sm text-emerald-300 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></div>
+                    <h3 class="mt-8 text-2xl font-bold">Protéger</h3>
+                    <p class="mt-3 max-w-xs text-sm leading-6 text-emerald-100">Promouvoir les droits et la dignité.</p>
+                </article>
+                <article class="engagement-reveal group border-t border-white/20 py-7 transition-colors duration-300 hover:border-amber-400" data-delay="4">
+                    <div class="flex items-start justify-between gap-4"><strong class="text-4xl font-medium tracking-tight text-amber-300">04</strong><span class="text-sm text-emerald-300 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></div>
+                    <h3 class="mt-8 text-2xl font-bold">Transformer</h3>
+                    <p class="mt-3 max-w-xs text-sm leading-6 text-emerald-100">Renforcer durablement la résilience.</p>
+                </article>
+            </div>
+        </div>
     </section>
 
-    <section id="soutenir" class="py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto rounded-2xl bg-gradient-to-br from-emerald-800 to-emerald-950 p-8 sm:p-12 text-white shadow-xl"><div class="grid gap-8 lg:grid-cols-2 lg:items-center"><div><p class="text-amber-300 text-sm font-bold uppercase tracking-wider">Agir avec nous</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold">Chaque soutien peut changer une vie.</h2><p class="mt-4 max-w-xl leading-7 text-emerald-50">Particuliers, entreprises et institutions : transformons ensemble les besoins urgents en solutions durables.</p></div><div class="grid gap-4 sm:grid-cols-2"><a href="#contact" class="rounded-xl bg-white p-5 text-emerald-950 transition hover:-translate-y-1 hover:shadow-lg"><strong class="block text-lg">Faire un don</strong><span class="mt-2 block text-sm text-gray-600">Soutenir financièrement nos actions.</span></a><a href="#contact" class="rounded-xl border border-white/30 bg-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/20"><strong class="block text-lg">Devenir partenaire</strong><span class="mt-2 block text-sm text-emerald-50">Construire un impact durable ensemble.</span></a></div></div></div></section>
+    <section id="soutenir" class="px-4 py-24 sm:px-6 lg:px-8">
+        <div class="scroll-reveal relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-emerald-950 px-7 py-8 text-white shadow-2xl shadow-emerald-950/20 sm:px-12 sm:py-12 lg:px-16 lg:py-14">
+            <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full border-[32px] border-amber-300/15" aria-hidden="true"></div>
+            <div class="absolute bottom-0 left-1/3 h-1 w-32 bg-amber-300" aria-hidden="true"></div>
+            <div class="relative grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:gap-16">
+                <div class="support-reveal" data-delay="0">
+                    <p class="text-sm font-bold uppercase tracking-[.2em] text-amber-300">Agir avec nous</p>
+                    <h2 class="mt-4 max-w-lg text-4xl font-bold leading-tight sm:text-5xl">Chaque soutien peut changer une vie.</h2>
+                    <p class="mt-5 max-w-xl text-base leading-7 text-emerald-50 sm:text-lg">Particuliers, entreprises et institutions : transformons ensemble les besoins urgents en solutions durables.</p>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <a href="#contact" class="support-reveal group rounded-2xl bg-amber-300 p-6 text-emerald-950 transition duration-300 hover:-translate-y-1 hover:bg-amber-200 hover:shadow-xl" data-delay="1">
+                        <span class="flex items-center justify-between gap-4"><strong class="text-xl">Faire un don</strong><span class="text-2xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></span>
+                        <span class="mt-8 block text-sm leading-6 text-emerald-900">Soutenir financièrement nos actions.</span>
+                    </a>
+                    <a href="#contact" class="support-reveal group rounded-2xl border border-white/25 bg-white/10 p-6 transition duration-300 hover:-translate-y-1 hover:border-amber-300/70 hover:bg-white/15" data-delay="2">
+                        <span class="flex items-center justify-between gap-4"><strong class="text-xl">Devenir partenaire</strong><span class="text-2xl text-amber-300 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span></span>
+                        <span class="mt-8 block text-sm leading-6 text-emerald-50">Construire un impact durable ensemble.</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="blog" class="bg-[#f6f0e4] py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Actualités</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Nos dernières histoires.</h2><div class="mt-10 grid gap-6 lg:grid-cols-3"><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Actualité · 12 août</p><h3 class="mt-3 text-xl font-bold">Quand la solidarité devient une force pour les familles</h3><p class="mt-3 text-sm leading-6 text-gray-600">Retour sur une initiative communautaire dédiée à l'accompagnement des personnes vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Témoignage · 05 août</p><h3 class="mt-3 text-xl font-bold">Donner une place à chaque personne</h3><p class="mt-3 text-sm leading-6 text-gray-600">L'inclusion commence par l'écoute, le respect et des actions adaptées.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Projet · 28 juillet</p><h3 class="mt-3 text-xl font-bold">Une nouvelle action pour accompagner les enfants</h3><p class="mt-3 text-sm leading-6 text-gray-600">Un projet tourné vers la protection et l'épanouissement des enfants vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article></div></div></section>
+    <section id="blog" class="scroll-reveal bg-[#f6f0e4] py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Actualités</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Nos dernières histoires.</h2><div class="mt-10 grid gap-6 lg:grid-cols-3"><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Actualité · 12 août</p><h3 class="mt-3 text-xl font-bold">Quand la solidarité devient une force pour les familles</h3><p class="mt-3 text-sm leading-6 text-gray-600">Retour sur une initiative communautaire dédiée à l'accompagnement des personnes vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Témoignage · 05 août</p><h3 class="mt-3 text-xl font-bold">Donner une place à chaque personne</h3><p class="mt-3 text-sm leading-6 text-gray-600">L'inclusion commence par l'écoute, le respect et des actions adaptées.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article><article class="rounded-xl bg-white p-6 shadow-sm"><p class="text-xs font-bold uppercase text-emerald-800">Projet · 28 juillet</p><h3 class="mt-3 text-xl font-bold">Une nouvelle action pour accompagner les enfants</h3><p class="mt-3 text-sm leading-6 text-gray-600">Un projet tourné vers la protection et l'épanouissement des enfants vulnérables.</p><a href="#contact" class="mt-5 inline-flex min-h-11 items-center font-bold text-emerald-800">Lire l'article <span aria-hidden="true" class="ml-2">→</span></a></article></div></div></section>
 
-    <section id="galerie" class="py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Nos images</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Des histoires qui méritent d'être vues.</h2><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=900&q=80" alt="Enfants réunis dans une communauté"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=80" alt="Action solidaire de proximité"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=900&q=80" alt="Personnes participant à une action collective"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80" alt="Communauté accompagnée sur le terrain"></div></div></section>
+    <section id="galerie" class="scroll-reveal py-20 px-4 sm:px-6 lg:px-8"><div class="max-w-7xl mx-auto"><p class="text-emerald-800 text-sm font-bold uppercase tracking-wider">Nos images</p><h2 class="mt-3 text-3xl sm:text-4xl font-bold text-gray-950">Des histoires qui méritent d'être vues.</h2><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=900&q=80" alt="Enfants réunis dans une communauté"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=80" alt="Action solidaire de proximité"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=900&q=80" alt="Personnes participant à une action collective"><img class="h-64 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80" alt="Communauté accompagnée sur le terrain"></div></div></section>
 
-    <section id="contact" class="bg-emerald-50 py-16 px-4 sm:px-6 lg:px-8">
+    <section id="contact" class="scroll-reveal bg-emerald-50 py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-2 lg:items-start">
             <div>
                 <p class="text-emerald-700 font-bold text-sm uppercase tracking-wider">Agir avec nous</p>
@@ -260,7 +335,7 @@
         </div>
     </section>
     <!-- SECTION ACTIVITÉS & MÉDIAS (PREVIEW DU FUTUR BLOG DJANGO) -->
-    <section id="activites" class="py-16 bg-gray-100">
+    <section id="activites" class="scroll-reveal py-16 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
                 <div>
@@ -444,10 +519,11 @@
         });
 
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const revealItems = document.querySelectorAll('.scroll-reveal, .about-reveal');
+        const revealItems = document.querySelectorAll('.scroll-reveal, .about-reveal, .engagement-reveal, .support-reveal');
         const revealVisibleItems = () => {
             revealItems.forEach((item) => {
-                if (item.getBoundingClientRect().top < window.innerHeight * .9) {
+                const bounds = item.getBoundingClientRect();
+                if (bounds.top < window.innerHeight * .88 && bounds.bottom > 0) {
                     item.classList.add('is-visible');
                 }
             });
@@ -461,7 +537,7 @@
                     entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 });
-            }, { threshold: 0.15 });
+            }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
             revealItems.forEach((item) => revealObserver.observe(item));
             window.addEventListener('scroll', revealVisibleItems, { passive: true });
             revealVisibleItems();
@@ -478,6 +554,7 @@
             const reveal = Math.min(Math.max((progress - .18) / .45, 0), 1);
             storyStage.style.setProperty('--story-progress', String(progress));
             storyStage.style.setProperty('--story-opacity', String(reveal));
+            storyStage.querySelector('.story-content').classList.toggle('is-active', reveal > 0.08);
         };
 
         window.addEventListener('scroll', updateStory, { passive: true });
